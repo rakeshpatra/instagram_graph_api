@@ -1,3 +1,3 @@
 module InstagramGraphApi
-  VERSION = "0.0.2PrP"
+  VERSION = "0.0.2"
 end
