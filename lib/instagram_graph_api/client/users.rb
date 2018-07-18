@@ -9,7 +9,7 @@ module InstagramGraphApi
         end.compact
       end
 
-      def account_info(ig_account_id, fields = nil)
+      def get_account_info(ig_account_id, fields = nil)
         fields ||= "biography,followers_count,ig_id,name,profile_picture_url,username,id"
         get_connections(ig_account_id , "?fields=#{fields}")
       end
