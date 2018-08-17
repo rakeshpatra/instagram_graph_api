@@ -2,7 +2,7 @@ module InstagramGraphApi
   class Client
     module Users
       def ig_business_accounts(fields = nil)
-        fields ||= 'id,name,biography, ig_id, followers_count, profile_picture_url,username'
+        fields ||= 'id,name,biography,ig_id,followers_count,profile_picture_url,username'
         accounts = get_pages("?fields=instagram_business_account{#{fields}}")
         accounts.map do |a|
           a["instagram_business_account"].merge(page_id: a["id"]) if a["instagram_business_account"]
