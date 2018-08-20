@@ -32,8 +32,8 @@ module InstagramGraphApi
         get_connections(media_id , "?fields=#{fields}")
       end
 
-      def insight(type)
-        get_insights
+      def insight(media_id, type)
+        insights = get_insights(media_id)
         if insights
           insight = insights.select{|m| m["name"] == type}.first
           data = if insight
@@ -47,7 +47,7 @@ module InstagramGraphApi
       end
 
     private
-      def get_insights
+      def get_insights(media_id)
         @insights = get_connections(media_id , "insights?metric=#{METRIC_HASH[type.to_sym]}")
       end
     end
