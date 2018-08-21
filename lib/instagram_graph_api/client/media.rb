@@ -1,7 +1,7 @@
 module InstagramGraphApi
   class Client
     module Media
-      attr_accessor :media_info, :insights
+      attr_accessor :media_info, :raw_insights
 
       METRIC_HASH = {
         image: 'impressions,reach',
@@ -26,29 +26,18 @@ module InstagramGraphApi
         get_connections(id, query)
       end
 
-      def get_media_details(media_id, fields = nil)
-        fields ||= "comments_count,like_count,media_type,
-                    media_url,permalink,timestamp,thumbnail_url,ig_id"
+      def get_media_details(media_id, type: "image")
+        fields ||= MEDIA_INFO_HASH[type.to_sym]
         get_connections(media_id , "?fields=#{fields}")
       end
 
-      def insight(media_id, type)
-        insights = get_insights(media_id)
-        if insights
-          insight = insights.select{|m| m["name"] == type}.first
-          data = if insight
-                   insight
-                 else
-                   try(type).first
-                 end
-
-          data["values"].first["value"]
+      def insights(media_id, type: "image", metrics: nil)
+        metrics ||= METRIC_HASH[type.to_sym]
+        @raw_insights = get_connections(media_id , "insights?metric=#{metrics}")
+        @raw_insights.reduce({}) do |result, insight_data|
+          result[insight_data["name"]] = insight_data["values"].first["value"]
+          result
         end
-      end
-
-    private
-      def get_insights(media_id)
-        @insights = get_connections(media_id , "insights?metric=#{METRIC_HASH[type.to_sym]}")
       end
     end
   end
