@@ -11,9 +11,11 @@ module InstagramGraphApi
         puts e.message
       end
 
-      def discover_user_media(username, fields = nil)
+      def discover_user_media(username, fields = nil, options={})
         fields ||= "caption,media_url,media_type,like_count,comments_count,id"
-        discover_user(username, "media{#{fields}}")
+        page_options = ".after(#{options['after']})" if options["after"]
+        page_options = ".after(#{options['before']})" if options["before"]
+        discover_user(username, "media#{page_options}{#{fields}}")
       end
     end
   end
