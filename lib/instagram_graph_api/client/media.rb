@@ -26,7 +26,7 @@ module InstagramGraphApi
         get_connections(id, query)
       end
 
-      def get_media_details(media_id, type: "image")
+      def get_media_details(media_id, fields = nil, type: "image")
         fields ||= MEDIA_INFO_HASH[type.to_sym]
         get_connections(media_id , "?fields=#{fields}")
       end
