@@ -9,6 +9,14 @@ module InstagramGraphApi
         end.compact
       end
 
+      def connected_ig_accounts(fields = nil)
+        fields ||= 'id,name,biography,ig_id,followers_count,profile_picture_url,username'
+        accounts = get_pages("?fields=connected_instagram_account{#{fields}}")
+        accounts.map do |a|
+          a["connected_instagram_account"].merge(page_id: a["id"]) if a["connected_instagram_account"]
+        end.compact
+      end
+
       def get_account_info(ig_account_id, fields = nil)
         fields ||= "biography,followers_count,ig_id,name,profile_picture_url,username,id"
         get_connections(ig_account_id , "?fields=#{fields}")

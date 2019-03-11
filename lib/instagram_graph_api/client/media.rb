@@ -18,9 +18,10 @@ module InstagramGraphApi
                       "timestamp,thumbnail_url"
       }
 
-      def get_user_recent_media(id, type: "image", options: {})
+      def get_user_recent_media(id, fields = nil, type: "image", options: {})
         entity = type.eql?("story") ? "stories" : "media"
-        query = "#{entity}?fields=#{MEDIA_INFO_HASH[type.to_sym]}"
+        fields ||= MEDIA_INFO_HASH[type.to_sym]
+        query = "#{entity}?fields=#{fields}"
         query += "&after=#{options[:after]}" if options[:after]
         query += "&before=#{options[:before]}" if options[:before]
         get_connections(id, query)

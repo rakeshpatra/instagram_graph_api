@@ -25,8 +25,14 @@ client = InstagramGraphApi.client(ACCESS_TOKEN)
 
 #get an arraay of business accounts linked to the access_token
 client.ig_business_accounts
+#get an array of connected IG accounts linked to the access_token
+client.connected_ig_accounts
 
-#get IG business account info
+#to get specific fields from "id,name,biography,ig_id,followers_count,profile_picture_url,username"
+client.ig_business_accounts("name,followers_count")
+client.connected_ig_accounts("name,followers_count")
+
+#get IG business account/ Connected IG account info
 client.get_account_info(IG_BUSINESS_ID)
 #to get specific fields
 fields = "name, biography"
