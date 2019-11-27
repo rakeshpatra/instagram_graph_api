@@ -7,6 +7,8 @@ module InstagramGraphApi
     include InstagramGraphApi::Client::Users
     include InstagramGraphApi::Client::Media
     include InstagramGraphApi::Client::Discovery
+    include InstagramGraphApi::Client::Hashtag
+    include InstagramGraphApi::Client::HashtagSearch
 
   end
 end
