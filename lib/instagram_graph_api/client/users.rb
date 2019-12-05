@@ -1,6 +1,15 @@
 module InstagramGraphApi
   class Client
     module Users
+
+      ACCOUNT_METRIC_HASH = {
+        day: 'email_contacts,follower_count,get_directions_clicks,impressions,phone_call_clicks,profile_views,reach,text_message_clicks,website_clicks',
+        week: 'impressions,reach',
+        days_28: 'impressions,reach',
+        lifetime: 'audience_city,audience_country,audience_gender_age,audience_locale,online_followers'
+      }
+
+
       def ig_business_accounts(fields = nil)
         fields ||= 'id,name,biography,ig_id,followers_count,profile_picture_url,username'
         accounts = get_pages("?fields=instagram_business_account{#{fields}}")
@@ -20,6 +29,11 @@ module InstagramGraphApi
       def get_account_info(ig_account_id, fields = nil)
         fields ||= "biography,followers_count,ig_id,name,profile_picture_url,username,id"
         get_connections(ig_account_id , "?fields=#{fields}")
+      end
+
+      def get_account_insights(ig_account_id, period = 'day', since_time, until_time, metrics: nil)
+        metrics ||= ACCOUNT_METRIC_HASH[period.to_sym]
+        get_connections(ig_account_id, "insights?metric=#{metrics}&since=#{since_time.to_i}&untile=#{until_time.to_i}&period=#{period}")
       end
 
       private
