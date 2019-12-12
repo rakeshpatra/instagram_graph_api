@@ -24,6 +24,7 @@ module InstagramGraphApi
         query = "#{entity}?fields=#{fields}"
         query += "&after=#{options[:after]}" if options[:after]
         query += "&before=#{options[:before]}" if options[:before]
+        query += "&limit=#{options[:limit]}" if options[:limit]
         get_connections(id, query)
       end
 
