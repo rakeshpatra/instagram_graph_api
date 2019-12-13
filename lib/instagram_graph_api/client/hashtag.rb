@@ -6,9 +6,11 @@ module InstagramGraphApi
         get_connections(hashtag_id, "?fields=#{fields}", options)
       end
 
-      def get_recent_media(hashtag_id, ig_account_id, fields = nil, options: {})
+      def get_hashtag_recent_media(hashtag_id, ig_account_id, fields = nil, options: {})
         fields ||= "caption,children,comments_count,id,like_count,media_type,media_url,permalink"
-        get_connections(hashtag_id, "recent_media?user_id=#{ig_account_id}&fields=#{fields}", options)
+        query = "recent_media?user_id=#{ig_account_id}&fields=#{fields}"
+        query += "&limit=#{options[:limit]}" if options[:limit]
+        get_connections(hashtag_id, query)
       end
     end
   end
