@@ -9,6 +9,6 @@ module InstagramGraphApi
     include InstagramGraphApi::Client::Discovery
     include InstagramGraphApi::Client::Hashtag
     include InstagramGraphApi::Client::HashtagSearch
-
+    include InstagramGraphApi::Client::Tags
   end
 end
