@@ -3,12 +3,6 @@ module InstagramGraphApi
     module Media
       attr_accessor :media_info, :raw_insights
 
-      METRIC_HASH = {
-        image: 'impressions,reach',
-        video: 'impressions,reach,video_views',
-        story: 'impressions,replies,reach,taps_forward,taps_back,exits'
-      }
-
       MEDIA_INFO_HASH = {
         image: "comments_count,like_count,media_type,"\
                     "media_url,permalink,timestamp,thumbnail_url",
