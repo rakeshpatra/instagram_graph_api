@@ -3,12 +3,6 @@ module InstagramGraphApi
     module Media
       attr_accessor :media_info, :raw_insights
 
-      METRIC_HASH = {
-        image: 'impressions,reach',
-        video: 'impressions,reach,video_views',
-        story: 'impressions,replies,reach,taps_forward,taps_back,exits'
-      }
-
       MEDIA_INFO_HASH = {
         image: "comments_count,like_count,media_type,"\
                     "media_url,permalink,timestamp,thumbnail_url",
@@ -32,14 +26,6 @@ module InstagramGraphApi
         get_connections(media_id , "?fields=#{fields}")
       end
 
-      def insights(media_id, type: "image", metrics: nil)
-        metrics ||= METRIC_HASH[type.to_sym]
-        @raw_insights = get_connections(media_id , "insights?metric=#{metrics}")
-        @raw_insights.reduce({}) do |result, insight_data|
-          result[insight_data["name"]] = insight_data["values"].first["value"]
-          result
-        end
-      end
     end
   end
 end
