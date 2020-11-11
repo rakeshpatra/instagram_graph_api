@@ -8,6 +8,6 @@ module InstagramGraphApi
     include InstagramGraphApi::Client::Users
     include InstagramGraphApi::Client::Media
     include InstagramGraphApi::Client::Discovery
-
+    include InstagramGraphApi::Client::Tag
   end
 end
