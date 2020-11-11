@@ -55,6 +55,16 @@ client.discover_user(USERNAME, fields)
 
 #discover user media, fields can be "caption,media_url,media_type,like_count,comments_count,id"
 client.discover_user_media(USERNAME, fields)
+
+#Search for a tag, 
+client.tag_media(page_token, tag_name)
+#fields can be "media_type,comments_count,like_count,media_url,permalink"
+fields="media_url,permalink"
+client.tag_media(page_token, tag_name, fields)
+#custom edge can be provided, default is 'top_media'
+tag_media = client.tag_media(page_token, tag_name, edge: "recent_media")
+# Note: We can run `tag_media.next_page` to fetch next set of results
+# additional arguent options can also be passed for page params i.e before/after/limit etc
 ```
 
 ## Development
